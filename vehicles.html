@@ -14,28 +14,119 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    body{
+      background-image: url("assets/img/bg.jpg");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .bb{
+      background-color: black;
+      width: 100vw;
+      height: 100%;
+      position: fixed;
+      top: 0; left: 0;
+      opacity: .7;
+      z-index: -2;
+    }
+    main{
+      z-index: 100 !important;
+    }
+    label{
+      color: white;
+    }
+
+    table{
+      background-color: transparent !important;
+    }
+  </style>
 
 </head>
 
 <body>
+    <div class="bb"></div>
+    <main class="d-flex min-vh-100">
+        <div class="row container-fluid">
+            <div class="col-xl-6 col-md-12">
+                <div class="section-title mt-3">
+                    <h2 style="font-size: 22px; color: white">Vehicles</h2>
+                  </div>
 
+                  <table class="table table-borderless  datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">S/N</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Color</th>
+                       
+                      </tr>
+                    </thead>
+                    <tbody id="table" >
+                      <tr>
+                        <th scope="row"><a href="#">1</a></th>
+                        <td>Ibrahim Sani Lawal</td>
+                        <td><a href="#" class="text-primary">08043343999</a></td>
+                        <td>Male</td>
+                        <td><span class="badge bg-warning">12-12-2022</span></td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
 
+            </div>
+            <div class="col-xl-3"></div>
+            <form id="addVisitorForm" class="col-xl-3 col-md-6 bg- py-4">
+                <h3 class="text-center h4 mb-4 text-white">Add New Vehicle</h3>
+                <div class="row mt-4 pt-4">
+                    <div class="col-12">
+                        <label for="model" class="form-label">Model</label>
+                        <div class="input-group has-validation">
+                          <input placeholder="Vehicle Model" type="text" name="model" class="form-control" id="model" required>
+                        </div>
+                      </div>
+                </div>
+                <div class="row mt-2 ">
+                    <div class="col-12">
+                        <label for="number" class="form-label">Number</label>
+                        <div class="input-group has-validation">
+                          <input placeholder="Vehicle Number" type="text" name="number" class="form-control" id="number" required>
+                        </div>
+                      </div>
+                </div>
+                <div class="row mt-2 ">
+                    <div class="col-12">
+                        <label for="color" class="form-label">Vehicle Color</label>
+                        <div class="input-group has-validation">
+                          <input placeholder="Color" type="text" name="color" class="form-control" id="color" required>
+                        </div>
+                      </div>
+                </div>
+         
+                <button class="mt-4 btn btn-primary col-12">Add New Vehicle</button>
+                <a href="/dashboard.html" class="mt-4 btn btn-secondary col-4">Go Back</a>
+
+            </form>
+        </div>
+    </main>
  
 
-  <!-- Vendor JS Files -->
+  <!-- Vendor JS  Files -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -46,6 +137,37 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+
+    
+
+
+    const renderTableData = (arr)=>{
+        const table = document.getElementById("table");
+        table.innerHTML = ""
+        arr.map((e, i)=>{
+            let html = `<tr>
+                <th scope="row"><a href="#">${i + 1}</a></th>
+                <td class='text-capitalize'>${e.model}</td>
+                <td><a href="#" class="text-primary">${e.number}</a></td>
+                <td class='text-capitalize'>${e.color}</td>
+              </tr>`;
+            table.innerHTML += html
+        })
+    }
+
+    const getData = ()=>{
+        const storedDataJSON = localStorage.getItem('vehicles');
+        if (storedDataJSON !== null) {
+            renderTableData(JSON.parse(storedDataJSON));
+          } 
+    }
+
+    getData()
+   
+  </script>
+  <script src="./assets/js/vehicles.js"></script>
 
 </body>
 

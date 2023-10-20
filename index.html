@@ -334,6 +334,12 @@ const campusSecurityReports = [
   }
 ];
 
+const vehicles = [
+{
+  number: "34535JGW",
+  model: "Honda 2009",
+  color: "red"
+}]
 
   const checkData = async(d, label)=>{
     const item = localStorage.getItem(label);
@@ -351,6 +357,7 @@ const campusSecurityReports = [
 
   checkData(data, "visitors")
   checkData(campusSecurityReports, "reports")
+  checkData(vehicles, "vehicles")
 
  
 
